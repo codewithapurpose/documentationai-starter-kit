@@ -1,0 +1,151 @@
+---
+title: Changelog
+description: Version history with recent updates and changes.
+---
+
+## Recent Releases
+
+Stay updated with the latest improvements to UltraLMS. Review release notes below, grouped by version. Each release includes new features for course building, AI enhancements, CRM tools, and more.
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added AI-powered course outline generator in the Studio dashboard.
+- Integrated Razorpay payments alongside Stripe for global commerce.
+- New webinar scheduling with automated Zoom integration.
+
+## Improvements
+
+- Enhanced course player with progress syncing across devices.
+- Optimized email campaign delivery speeds by `>30%`.
+
+## Bug Fixes
+
+- Fixed certificate QR code verification for shared links.
+- Resolved cohort enrollment glitches during peak hours.
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["bugfix", "security"]}>
+
+## Security Updates
+
+- Patched potential XSS vulnerabilities in custom domain forms.
+- Enforced stricter rate limiting on REST API endpoints.
+
+## Bug Fixes
+
+- Corrected subscription renewal failures on `academy.yourdomain.com`.
+- Fixed automation triggers not firing for quiz completions.
+
+## Improvements
+
+- Upgraded CRM contact search with fuzzy matching.
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["breaking", "feature"]}>
+
+## Breaking Changes
+
+- Migrated webhook payloads to v2 schema—update your handlers to `https://api.example.com/v2/webhooks`.
+- Deprecated legacy email templates; migrate to new builder.
+
+## New Features
+
+- Launched core AI Studio for narration and slide generation.
+- Introduced verifiable certificates with QR codes.
+- Full CRM, automations, and checkout on custom domains.
+
+</Update>
+
+## How to Upgrade
+
+Follow these steps to update your UltraLMS instance safely.
+
+<Steps>
+  <Step title="Backup Data" icon="database">
+
+    Export courses, users, and automations via the admin dashboard.
+
+  </Step>
+  <Step title="Check Breaking Changes" icon="alert-triangle">
+
+    Review notes above, especially for `v1.0.0`. Test webhooks:
+
+````javascript
+// Example v2 webhook handler
+app.post('/webhook', (req, res) => {
+  const event = req.body.event; // Now namespaced
+  if (event === 'course.completed') {
+    // Handle completion
+  }
+  res.status(200).send('OK');
+});
+````
+
+  </Step>
+  <Step title="Deploy Update" icon="upload">
+
+    Run the update command and restart services.
+
+````bash
+ultralms update --version 1.2.0
+systemctl restart ultralms
+````
+
+  </Step>
+</Steps>
+
+<Callout kind="alert">
+  Always test in staging first. Breaking changes in `v1.0.0` require code updates for `{webhook payloads}`.
+</Callout>
+
+## Upcoming Roadmap
+
+Track planned features and enhancements.
+
+<Board title="Q4 2024 Roadmap">
+  <BoardColumn title="Planned" color="0" icon="calendar">
+    <BoardCard title="Advanced AI quizzes" description="Auto-generate adaptive assessments" icon="zap" dueDate="2024-12-15" />
+    <BoardCard title="Multi-language support" description="Course translation workflows" icon="globe" />
+  </BoardColumn>
+  <BoardColumn title="In Progress" color="1" icon="loader-2">
+    <BoardCard title="Blog editor v2" description="Rich text with SEO tools" icon="edit-3" author="Engineering" />
+  </BoardColumn>
+  <BoardColumn title="Shipped" color="2" icon="check-circle">
+    <BoardCard title="Razorpay integration" createdAt="2024-10-15" />
+  </BoardColumn>
+</Board>
+
+## Explore More
+
+<Columns cols={2}>
+  <Card title="Quickstart" icon="book-open" href="/quickstart">
+    Get started with your first course.
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference" horizontal>
+    Integrate with REST API and webhooks.
+  </Card>
+</Columns>
+
+<CodeGroup tabs="JavaScript,Python">
+````javascript
+// Verify webhook signature
+const crypto = require('crypto');
+const signature = crypto.createHmac('sha256', 'YOUR_SECRET')
+  .update(payload)
+  .digest('hex');
+````
+````python
+# Verify webhook signature
+import hmac
+import hashlib
+signature = hmac.new(
+  b'YOUR_SECRET',
+  payload,
+  hashlib.sha256
+).hexdigest()
+````
+</CodeGroup>

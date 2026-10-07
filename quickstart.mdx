@@ -1,0 +1,160 @@
+---
+title: Quickstart Guide
+description: Account setup and first steps to launch your academy quickly.
+---
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+- A valid email address for registration
+- Access to Stripe or Razorpay for payments (optional for initial setup)
+- Your custom domain ready (optional)
+
+<Callout kind="info">
+
+UltraLMS operates by invitation. Request one to get started immediately.
+
+</Callout>
+
+## Get Started in Minutes
+
+Follow these steps to set up your account, access the dashboard, create your first AI-powered course, and publish your academy.
+
+<Steps>
+  <Step title="Request an Invitation" icon="mail">
+
+    Visit the [UltraLMS homepage](https://ultralms.com) and click **Request an invitation**.
+
+    Fill out the form with your academy details. You'll receive an email within minutes containing your unique invitation link.
+
+  </Step>
+
+  <Step title="Sign In and Access Dashboard" icon="login">
+
+    Click **I have an invitation** on the homepage or use your invitation link.
+
+    Enter your credentials to reach the dashboard at `academy.yourdomain.com/admin`.
+
+    Key sections include **Overview**, **Courses**, **People**, **Marketing**, **Automations**, **Sales**, **Website**, and **Live**.
+
+  </Step>
+
+  <Step title="Create Your First Course with AI" icon="zap">
+
+    In the dashboard, select **New course with AI**.
+
+    Provide a brief outline, such as:
+
+    ```
+    A six-week course on watercolor landscapes for complete beginners.
+    Beginner level, 6 modules, warm practical tone.
+    ```
+
+    AI generates modules, lessons, quizzes, narration, slides, and a landing page. Review and revise as needed.
+
+    <CodeGroup tabs="API,Webhook">
+
+    ````javascript
+    // Use REST API to create course programmatically
+    const response = await fetch('https://api.ultralms.com/v1/courses', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${YOUR_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: 'Watercolor Landscapes',
+        aiPrompt: 'Six-week beginner course on watercolor',
+        modules: 6
+      })
+    });
+    ````
+
+    ````bash
+    # Webhook for course creation events
+    curl -X POST https://your-webhook-url.com/ultralms \
+      -H "Content-Type: application/json" \
+      -d '{
+        "event": "course.created",
+        "data": {"id": "course-123", "title": "Watercolor Landscapes"}
+      }'
+    ````
+
+    </CodeGroup>
+
+  </Step>
+
+  <Step title="Publish and Share Your Academy" icon="globe">
+
+    Once your course is ready (e.g., `Draft` status with lessons and quizzes), click **Publish**.
+
+    Customize your landing page, enable certificates (verifiable by QR code), and set up welcome emails/automations.
+
+    Share via `academy.yourdomain.com` or embed the course player on your site.
+
+    <Tabs>
+      <Tab title="Custom Domain" icon="settings">
+
+        Configure your domain in **Website > Custom domains**.
+
+        Point DNS: Add CNAME `academy` to `ultralms.com`.
+
+      </Tab>
+
+      <Tab title="Embed Player" icon="code">
+
+        Use the embed code:
+
+      ````html
+      <iframe
+        src="https://academy.yourdomain.com/embed/course-123"
+        width="100%"
+        height="600"
+        frameborder="0">
+      </iframe>
+      ````
+
+      </Tab>
+    </Tabs>
+
+  </Step>
+</Steps>
+
+<Callout kind="success">
+
+Congratulations! Your academy is live. Students can now enroll, complete courses, and earn certificates.
+
+</Callout>
+
+## Next Steps
+
+Explore these areas to enhance your academy.
+
+<Columns cols={2}>
+  <Card title="Authentication" icon="shield" href="/authentication">
+    Set up secure logins for staff and students.
+  </Card>
+
+  <Card title="Marketing & Automations" icon="zap" href="/marketing">
+    Launch email campaigns and CRM workflows.
+  </Card>
+
+  <Card title="Live Classes & Webinars" icon="video" href="/live">
+    Schedule cohorts and streaming sessions.
+  </Card>
+
+  <Card title="Commerce Setup" icon="shopping-cart" href="/commerce">
+    Integrate Stripe or Razorpay for payments.
+  </Card>
+</Columns>
+
+<Expandable title="Troubleshooting Common Issues" default-open="false">
+
+- **Invitation not received?** Check spam folder or request again.
+- **Dashboard inaccessible?** Verify your subdomain `academy.yourdomain.com`.
+- **AI course generation fails?** Ensure prompt is under 500 characters.
+
+For support, use the in-app forms or contact via dashboard.
+
+</Expandable>

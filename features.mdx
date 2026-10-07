@@ -1,0 +1,152 @@
+---
+title: Core Features
+description: Core capabilities and use cases for building and managing online academies.
+---
+
+## Overview
+
+UltraLMS provides everything you need to build, launch, and scale online academies. Use AI-powered tools to create courses quickly, manage interactive content like quizzes and certificates, run cohorts and live sessions, and deploy branded websites on custom domains. Focus on your audience while the platform handles the rest.
+
+<Columns cols={3}>
+  <Card title="AI Course Builder" icon="zap" href="#ai-builder">
+    Generate complete courses from outlines using AI.
+  </Card>
+  <Card title="Interactive Content" icon="book-open" href="#content">
+    Add quizzes, assignments, and verifiable certificates.
+  </Card>
+  <Card title="Live & Cohorts" icon="users" href="#live">
+    Host webinars, live classes, and structured cohorts.
+  </Card>
+  <Card title="Website Builder" icon="globe" href="#website">
+    Build sites with blogs, forms, and custom domains.
+  </Card>
+</Columns>
+
+## AI Course Builder and Studio
+
+Start creating courses instantly with the AI course builder. Provide a brief outline, and AI generates modules, lessons, quizzes, narration scripts, and even slides.
+
+<Steps>
+  <Step title="Generate Outline" icon="sparkles">
+    Enter your course topic and target audience.
+
+    ```
+    Brief: Six-week watercolor for beginners
+    Tone: Warm, practical
+    ```
+
+  </Step>
+  <Step title="Build Full Course" icon="play">
+    AI creates lessons, quizzes, and certificates.
+  </Step>
+  <Step title="Customize in Studio" icon="edit-3">
+    Revise content, add videos, or regenerate sections.
+  </Step>
+  <Step title="Publish" icon="rocket">
+    Launch to your academy domain.
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  Use the AI Studio for iterative improvements—regenerate specific modules without rebuilding everything.
+</Callout>
+
+## Courses, Quizzes, and Certificates
+
+Build engaging courses with multimedia lessons, quizzes, and assignments. Issue verifiable certificates with QR codes for completion.
+
+<Tabs>
+  <Tab title="Quizzes" icon="check-circle">
+    Embed quizzes after modules to reinforce learning.
+
+````javascript
+// Example quiz payload via API
+POST https://api.example.com/v1/quizzes
+{
+  "course_id": "course_123",
+  "title": "Module 1 Quiz",
+  "questions": [
+    {
+      "type": "multiple_choice",
+      "question": "What is a wash?",
+      "options": ["A", "B", "C"],
+      "correct": 0
+    }
+  ]
+}
+````
+
+  </Tab>
+  <Tab title="Certificates" icon="award">
+    Auto-issue on completion.
+
+````javascript
+// Certificate verification endpoint
+GET https://api.example.com/v1/certificates/{id}/verify
+// Returns: { valid: true, learner: "user@example.com" }
+````
+
+  </Tab>
+</Tabs>
+
+## Cohorts, Live Classes, and Webinars
+
+Run structured cohorts with start dates and live sessions. Integrate Zoom-like webinars directly in your player.
+
+<Board title="Academy Workflow">
+  <BoardColumn title="Planning" color="0" icon="calendar">
+    <BoardCard title="New Cohort" description="Set dates and capacity" icon="users" dueDate="2024-12-01" />
+  </BoardColumn>
+  <BoardColumn title="Live" color="1" icon="video">
+    <BoardCard title="Weekly Webinar" description="Host via built-in player" icon="camera" />
+  </BoardColumn>
+  <BoardColumn title="Completed" color="2" icon="check-circle">
+    <BoardCard title="Issue Certificates" description="Bulk generate for graduates" createdAt="2024-11-15" />
+  </BoardColumn>
+</Board>
+
+## Website Builder and Custom Domains
+
+Design landing pages, blogs, and checkouts without code. Connect your custom domain like `academy.yourdomain.com`.
+
+<CodeGroup tabs="JavaScript,cURL">
+```javascript
+// Set custom domain via API
+const response = await fetch('https://api.example.com/v1/domains', {
+  method: 'POST',
+  headers: { 'Authorization': 'Bearer YOUR_TOKEN' },
+  body: JSON.stringify({
+    "domain": "academy.example.com",
+    "academy_id": "acad_456"
+  })
+});
+```
+
+```bash
+curl -X POST https://api.example.com/v1/domains \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{"domain": "academy.example.com", "academy_id": "acad_456"}'
+```
+</CodeGroup>
+
+<Expandable title="Advanced Integrations" default-open="false">
+  Connect webhooks for custom automations.
+
+```javascript
+// Webhook payload example
+{
+  "event": "course.completed",
+  "data": {
+    "user_id": "user_789",
+    "course_id": "course_123",
+    "certificate_id": "cert_abc"
+  }
+}
+```
+
+  Listen at `https://your-webhook-url.com/ultralms`
+</Expandable>
+
+<Callout kind="info">
+  Explore [REST API](/api-reference) and webhooks for deeper integrations.
+</Callout>
